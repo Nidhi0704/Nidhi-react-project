@@ -1,0 +1,98 @@
+'use strict';
+
+const ROLES = {
+  SUPER_ADMIN: 'super_admin',
+  SUB_ADMIN: 'sub_admin',
+  CITY_MANAGER: 'city_manager',
+  TECHNICIAN_MANAGER: 'technician_manager',
+  CATALOG_MANAGER: 'catalog_manager',
+  AMC_MANAGER: 'amc_manager',
+  FINANCE_MANAGER: 'finance_manager',
+  SUPPORT_AGENT: 'support_agent',
+  VIEWER: 'viewer',
+  CUSTOMER: 'customer',
+  PARTNER: 'partner',
+};
+
+// All admin-side roles (can access /api/admin/*)
+const ADMIN_ROLES = [
+  ROLES.SUPER_ADMIN,
+  ROLES.SUB_ADMIN,
+  ROLES.CITY_MANAGER,
+  ROLES.TECHNICIAN_MANAGER,
+  ROLES.CATALOG_MANAGER,
+  ROLES.AMC_MANAGER,
+  ROLES.FINANCE_MANAGER,
+  ROLES.SUPPORT_AGENT,
+  ROLES.VIEWER,
+];
+
+const PERMISSIONS = {
+  // bookings
+  VIEW_BOOKINGS: 'view_bookings',
+  MANAGE_BOOKINGS: 'manage_bookings',
+  // partners
+  VIEW_PARTNERS: 'view_partners',
+  MANAGE_PARTNERS: 'manage_partners',
+  APPROVE_PARTNERS: 'approve_partners',
+  // users
+  VIEW_USERS: 'view_users',
+  MANAGE_USERS: 'manage_users',
+  // catalog
+  VIEW_CATALOG: 'view_catalog',
+  MANAGE_CATALOG: 'manage_catalog',
+  // amc
+  VIEW_AMC: 'view_amc',
+  MANAGE_AMC: 'manage_amc',
+  // orders
+  VIEW_ORDERS: 'view_orders',
+  MANAGE_ORDERS: 'manage_orders',
+  // support
+  VIEW_SUPPORT: 'view_support',
+  MANAGE_SUPPORT: 'manage_support',
+  // finance
+  VIEW_FINANCE: 'view_finance',
+  // dashboard
+  VIEW_DASHBOARD: 'view_dashboard',
+  // staff
+  MANAGE_STAFF: 'manage_staff',
+  // audit
+  VIEW_AUDIT: 'view_audit',
+};
+
+// Default permissions per role
+const ROLE_DEFAULT_PERMISSIONS = {
+  [ROLES.SUPER_ADMIN]: Object.values(PERMISSIONS),
+  [ROLES.SUB_ADMIN]: Object.values(PERMISSIONS),
+  [ROLES.CITY_MANAGER]: [
+    PERMISSIONS.VIEW_BOOKINGS, PERMISSIONS.MANAGE_BOOKINGS,
+    PERMISSIONS.VIEW_PARTNERS, PERMISSIONS.VIEW_USERS,
+    PERMISSIONS.VIEW_DASHBOARD,
+  ],
+  [ROLES.TECHNICIAN_MANAGER]: [
+    PERMISSIONS.VIEW_PARTNERS, PERMISSIONS.MANAGE_PARTNERS,
+    PERMISSIONS.APPROVE_PARTNERS, PERMISSIONS.VIEW_BOOKINGS,
+    PERMISSIONS.MANAGE_BOOKINGS,
+  ],
+  [ROLES.CATALOG_MANAGER]: [
+    PERMISSIONS.VIEW_CATALOG, PERMISSIONS.MANAGE_CATALOG,
+  ],
+  [ROLES.AMC_MANAGER]: [
+    PERMISSIONS.VIEW_AMC, PERMISSIONS.MANAGE_AMC,
+    PERMISSIONS.VIEW_BOOKINGS,
+  ],
+  [ROLES.FINANCE_MANAGER]: [
+    PERMISSIONS.VIEW_FINANCE, PERMISSIONS.VIEW_ORDERS,
+    PERMISSIONS.VIEW_BOOKINGS, PERMISSIONS.VIEW_DASHBOARD,
+  ],
+  [ROLES.SUPPORT_AGENT]: [
+    PERMISSIONS.VIEW_SUPPORT, PERMISSIONS.MANAGE_SUPPORT,
+    PERMISSIONS.VIEW_USERS,
+  ],
+  [ROLES.VIEWER]: [
+    PERMISSIONS.VIEW_DASHBOARD, PERMISSIONS.VIEW_BOOKINGS,
+    PERMISSIONS.VIEW_USERS, PERMISSIONS.VIEW_PARTNERS,
+  ],
+};
+
+module.exports = { ROLES, ADMIN_ROLES, PERMISSIONS, ROLE_DEFAULT_PERMISSIONS };
