@@ -7,10 +7,14 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "serve -s build",
+    "build": "react-scripts build"
   },
   "dependencies": {
-    "react-router-dom": "^7.13.1"
-  },
-  "devDependencies": {}
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.13.1",
+    "react-scripts": "^5.0.1",
+    "serve": "^14.2.1"
+  }
 }
